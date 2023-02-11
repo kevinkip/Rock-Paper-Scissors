@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1, p{
+   text-align: center; 
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
