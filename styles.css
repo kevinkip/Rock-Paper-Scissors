@@ -8,8 +8,18 @@ h1, p{
    text-align: center; 
 }
 
-.buttons{
+.results{
     display: flex;
     justify-content: center;
-    gap: 8px;
+    align-items: center;
+    padding: 8px;
+    height: 2em;
+    gap: 5px;
+}
+
+.choose, #guessField, .guessSubmit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.5em;
 }

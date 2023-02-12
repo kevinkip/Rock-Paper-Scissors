@@ -12,22 +12,14 @@
 
     <p>Do you have what it takes to be the next Rock-Paper-Scissors champion? Choose your hand to begin.</p>
 
-    <div class="buttons">
-        <button id="rock">
-            Rock
-        </button>
-        <button id="paper">
-            Paper
-        </button>
-        <button id="scissors">
-            Scissors
-        </button>
+    <div class="results">
+        <p class="choose">Rock, Paper or Scissors: </p>
+        <input type="text" id="guessField" class="guessField">
+        <input type="submit" value="Submit guess" class="guessSubmit">
     </div>
 
     <div class="results">
-        <p>Player choice: <p class="playerSelection"></p></p>
-        <p class="computerSelection">Computer choice:</p>
-        <p class="winner"></p>
+        <p class="outcome"></p>
     </div>
     <script src="script.js"></script>
 </body>
