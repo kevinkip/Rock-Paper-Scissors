@@ -23,3 +23,17 @@ h1, p{
     align-items: center;
     height: 1.5em;
 }
+
+.gameInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.rounds{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
