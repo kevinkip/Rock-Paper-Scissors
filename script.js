@@ -6,20 +6,17 @@ const outcome = document.querySelector('.outcome');
 const gameRounds = document.querySelector('.gameRounds');
 const playerPoints = document.querySelector('.pp');
 const computerPoints = document.querySelector('.cp');
+const buttons = document.querySelectorAll('.btn');
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
 
 let resetButton;
-let gameCount = 0;
+let gameCount=0;
+console.log(gameCount);
 let playerScore = 0;
 let computerScore = 0;
-
-function playerChoice(){
-    const userGuess = guessField.value.toLowerCase();
-    let firstLetter = userGuess.slice(0,1);
-    let restOfString = userGuess.slice(1);
-    let playerSelection = firstLetter.toUpperCase() + restOfString;
-    console.log(playerSelection);
-    return playerSelection;
-}
+let playerHand;
 
 function computerChoice(){
     let choice = Math.floor(Math.random() * choices.length);
@@ -30,106 +27,87 @@ function computerChoice(){
 
 function oneRound(){
     let roundResult;
-    let playerSelection = playerChoice();
+    let playerSelection = playerHand;
     let computerSelection = computerChoice();
 
     if(playerSelection == 'Rock' && computerSelection == 'Rock' || 
     playerSelection == 'Paper' && computerSelection == 'Paper' ||
     playerSelection == 'Scissors' && computerSelection == 'Scissors'){
         roundResult = 'tie';
-        gameCount+=1;
-        playerPoints.textContent = playerScore;
-        computerPoints.textContent = computerScore;
         outcome.textContent = "It's a tie.";
-        gameRounds.textContent = gameCount;
-
     }
 
     if (playerSelection == 'Rock' && computerSelection == 'Paper'){
         roundResult = 'computer';
-        gameCount+=1;
         computerScore+=1;
-        playerPoints.textContent = playerScore;
-        computerPoints.textContent = computerScore;
         outcome.textContent = "You Lose! Rock loses to Paper";
-        gameRounds.textContent = gameCount;
 
     } else if (playerSelection == 'Paper' && computerSelection == 'Rock'){
         roundResult = 'player';
-        gameCount+=1;
         playerScore+=1;
-        playerPoints.textContent = playerScore;
-        computerPoints.textContent = computerScore;
         outcome.textContent = "You Win! Rock beats Paper";
-        gameRounds.textContent = gameCount;
-
     }
 
     if (playerSelection == 'Paper' && computerSelection == 'Scissors'){
         roundResult = 'computer';
-        gameCount+=1;
         computerScore+=1;
-        playerPoints.textContent = playerScore;
-        computerPoints.textContent = computerScore;
         outcome.textContent = "You Lose! Paper loses to Scissors";
-        gameRounds.textContent = gameCount;
 
     } else if (playerSelection == 'Scissors' && computerSelection == 'Paper'){
         roundResult = 'player';
-        gameCount+=1;
         playerScore+=1;
-        playerPoints.textContent = playerScore;
-        computerPoints.textContent = computerScore;
         outcome.textContent = "You Win! Scissors beats Paper";
-        gameRounds.textContent = gameCount;
-
     }
 
     if (playerSelection == 'Scissors' && computerSelection == 'Rock'){
         roundResult = 'computer';
-        gameCount+=1;
         computerScore+=1;
-        playerPoints.textContent = playerScore;
-        computerPoints.textContent = computerScore;
         outcome.textContent = "You Lose! Scissors loses to Rock";
-        gameRounds.textContent = gameCount;
 
     } else if (playerSelection == 'Rock' && computerSelection == 'Scissors'){
         roundResult = 'player';
-        gameCount+=1;
         playerScore+=1;
-        playerPoints.textContent = playerScore;
-        computerPoints.textContent = computerScore;
         outcome.textContent = "You Win! Rock beats Scissors";
-        gameRounds.textContent = gameCount;
-
     }
     console.log(gameCount);
     console.log(roundResult);
-    start();
+    gameCount+=1;  
+    gameRounds.textContent = gameCount;
+    playerPoints.textContent = playerScore;
+    computerPoints.textContent = computerScore;
+
 }
 
-// Need a reset button
-// Also a reset game to clear everything back to start.
+function checkRound(){
+    if(gameCount = 5){
+        gameOver;
+    } else {
+        start;
+    }
+}
 
 function gameOver(){
-    guessField.value = '';
-    guessField.disabled = true;
-    guessSubmit.disabled = true;
+    buttons.disabled = true;
+    if(playerScore > computerScore){
+        outcome.textContent = "Player Wins!";
+    } else if(computerScore > playerScore){
+        outcome.textContent = "Computer Wins!";
+    }
 }
 
 function start(){
-    if(gameCount < 5){
-        guessSubmit.addEventListener('click', oneRound);
-    } else {
-        if(playerScore > computerScore){
-            outcome.textContent = "Player Wins!";
-            gameOver();
-        } else if(computerScore > playerScore){
-            outcome.textContent = "Computer Wins!";
-            gameOver();
+    buttons.forEach((button) => button.addEventListener('click', () => {
+    let handId = button.id;
+        if(handId = 'rock'){
+            playerHand = 'Rock';
+            oneRound();
+        } else if (handId = 'paper'){
+            playerHand = 'Paper';
+            oneRound();
+        } else if (handId = 'scissors'){
+            playerHand = 'Scissors';
+            oneRound();
         }
-    }
-
+    }))                
 }
 start();

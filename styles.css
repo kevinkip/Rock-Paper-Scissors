@@ -8,25 +8,29 @@ h1, p{
    text-align: center; 
 }
 
+.btn{
+    display: flex;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+}
+
+.btn:hover{
+    transform: scale(1.1);
+}
+
 .header{
     text-decoration: underline;
     font-weight: bold;
 }
 
-.results{
+.options{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    padding: 8px;
-    height: 2em;
-    gap: 5px;
-}
-
-.choose, #guessField, .guessSubmit{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 1.5em;
+    padding-top: 15px;
 }
 
 .gameInfo{
