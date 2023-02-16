@@ -1,16 +1,13 @@
 
-// const jsConfetti = import("js-confetti");
-
-const choices = ['Rock', 'Paper', 'Scissors'];
-
 const outcome = document.querySelector('.outcome');
 const gameRounds = document.querySelector('.gameRounds');
 const playerPoints = document.querySelector('.pp');
 const computerPoints = document.querySelector('.cp');
 const buttons = document.querySelectorAll('.btn');
 const images = document.querySelectorAll('.images');
+const choices = ['Rock', 'Paper', 'Scissors'];
 
-
+//global variables
 let resetButton;
 let gameCount=0;
 console.log(gameCount);
@@ -19,13 +16,14 @@ let computerScore = 0;
 let playerName = '';
 console.log(playerName);
 
+//computer pick randomizer. 
 function computerChoice(){
     let choice = Math.floor(Math.random() * choices.length);
     let computerSelection = choices[choice];
     console.log(computerSelection);
     return computerSelection;
 }
-
+// match the computer to player's hand.
 function oneRound(hand){
     let roundResult;
     let playerSelection = hand;
@@ -70,9 +68,9 @@ function oneRound(hand){
         playerScore+=1;
         outcome.textContent = "You Win! Rock beats Scissors";
     }
-    console.log(gameCount);
-    console.log(roundResult);
     gameCount+=1;
+
+    //decide to continue game, or finish.  
     if(gameCount < 5){
         gameRounds.textContent = gameCount;
         playerPoints.textContent = playerScore;
@@ -82,13 +80,13 @@ function oneRound(hand){
     }
 }
 
+//disable buttons after game is finished. 
 function gameOver(){
     images.disabled=true;
     buttons.disabled=true;
 
     if(playerScore > computerScore){
         outcome.textContent =  `You've won ${playerName}. Congratulations!`;
-        jsConfetti.addConfetti();
     } else if(computerScore > playerScore){
         outcome.textContent = "Computer Wins! Sucks to suck :)";
     } else if(playerScore == computerScore){
@@ -97,6 +95,7 @@ function gameOver(){
 
 }
 
+//for each button, interpret the player's choice.
 function start(){
     let playerHand;
     buttons.forEach((button) => button.addEventListener('click', () => {
@@ -112,4 +111,15 @@ function start(){
         oneRound(playerHand);
     }));                
 }
-start(playerName = prompt("What's your name", ));
+
+//start game with player's name and use it later.
+function requiredFunction(){
+    let playerName = window.prompt("What's your name", );
+    if (playerName == "" || playerName == null){
+        requiredFunction();
+    } else {
+        start();
+    }
+}
+
+requiredFunction();
