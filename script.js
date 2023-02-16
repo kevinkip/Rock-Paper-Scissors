@@ -1,22 +1,23 @@
+
+// const jsConfetti = import("js-confetti");
+
 const choices = ['Rock', 'Paper', 'Scissors'];
 
-const guessSubmit = document.querySelector('.guessSubmit');
-const guessField = document.querySelector('.guessField');
 const outcome = document.querySelector('.outcome');
 const gameRounds = document.querySelector('.gameRounds');
 const playerPoints = document.querySelector('.pp');
 const computerPoints = document.querySelector('.cp');
 const buttons = document.querySelectorAll('.btn');
-const rock = document.querySelector('#rock');
-const paper = document.querySelector('#paper');
-const scissors = document.querySelector('#scissors');
+const images = document.querySelectorAll('.images');
+
 
 let resetButton;
 let gameCount=0;
 console.log(gameCount);
 let playerScore = 0;
 let computerScore = 0;
-let playerHand;
+let playerName = '';
+console.log(playerName);
 
 function computerChoice(){
     let choice = Math.floor(Math.random() * choices.length);
@@ -25,9 +26,9 @@ function computerChoice(){
     return computerSelection;
 }
 
-function oneRound(){
+function oneRound(hand){
     let roundResult;
-    let playerSelection = playerHand;
+    let playerSelection = hand;
     let computerSelection = computerChoice();
 
     if(playerSelection == 'Rock' && computerSelection == 'Rock' || 
@@ -71,43 +72,44 @@ function oneRound(){
     }
     console.log(gameCount);
     console.log(roundResult);
-    gameCount+=1;  
-    gameRounds.textContent = gameCount;
-    playerPoints.textContent = playerScore;
-    computerPoints.textContent = computerScore;
-
-}
-
-function checkRound(){
-    if(gameCount = 5){
-        gameOver;
-    } else {
-        start;
+    gameCount+=1;
+    if(gameCount < 5){
+        gameRounds.textContent = gameCount;
+        playerPoints.textContent = playerScore;
+        computerPoints.textContent = computerScore;
+    } else if (gameCount >= 5){
+        gameOver();
     }
 }
 
 function gameOver(){
-    buttons.disabled = true;
+    images.disabled=true;
+    buttons.disabled=true;
+
     if(playerScore > computerScore){
-        outcome.textContent = "Player Wins!";
+        outcome.textContent =  `You've won ${playerName}. Congratulations!`;
+        jsConfetti.addConfetti();
     } else if(computerScore > playerScore){
-        outcome.textContent = "Computer Wins!";
+        outcome.textContent = "Computer Wins! Sucks to suck :)";
+    } else if(playerScore == computerScore){
+        outcome.textContent = `Looks like you're tied with the computer ${playerName}!`;
     }
+
 }
 
 function start(){
+    let playerHand;
     buttons.forEach((button) => button.addEventListener('click', () => {
     let handId = button.id;
         if(handId = 'rock'){
             playerHand = 'Rock';
-            oneRound();
         } else if (handId = 'paper'){
             playerHand = 'Paper';
-            oneRound();
         } else if (handId = 'scissors'){
             playerHand = 'Scissors';
-            oneRound();
-        }
-    }))                
+        }    
+        console.log(playerHand)
+        oneRound(playerHand);
+    }));                
 }
-start();
+start(playerName = prompt("What's your name", ));

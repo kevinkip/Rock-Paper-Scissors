@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
     <title>Rock Paper Scissors</title>
 </head>
 <body>
@@ -14,13 +16,13 @@
         <div class="game">
             <div class="options">
                 <button class="btn" id="rock">
-                    <img src="./images/rock-hand.jpg" alt="rock hand">
+                    <img class="images" src="./images/rock-hand.jpg" alt="rock hand">
                 </button>
                 <button class="btn" id="paper">
-                    <img src="./images/paper-hand.jpg" alt="paper hand">
+                    <img class="images" src="./images/paper-hand.jpg" alt="paper hand">
                 </button>
                 <button class="btn" id="scissors">
-                    <img src="./images/scissor-hand.jpg" alt="scissor hand">
+                    <img class="images" src="./images/scissor-hand.jpg" alt="scissor hand">
                 </button>
             </div>
         </div>
@@ -44,6 +46,9 @@
     <div>
         <p class="outcome"></p>       
     </div> 
-    <script src="script.js"></script>
+    <div>
+        <canvas class="confetti" id="canvas"></canvas>
+    </div>
+        <script src="script.js"></script>
 </body>
 </html>
