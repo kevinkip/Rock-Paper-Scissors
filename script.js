@@ -9,6 +9,7 @@ const choices = ['Rock', 'Paper', 'Scissors'];
 
 //global variables
 let resetButton;
+let rounds = 1;
 let gameCount=0;
 console.log(gameCount);
 let playerScore = 0;
@@ -25,7 +26,7 @@ function computerChoice(){
 }
 // match the computer to player's hand.
 function oneRound(hand){
-    let roundResult;
+    console.log(gameCount);
     let playerSelection = hand;
     let computerSelection = computerChoice();
 
@@ -71,12 +72,18 @@ function oneRound(hand){
     gameCount+=1;
 
     //decide to continue game, or finish.  
-    if(gameCount < 5){
+    if(gameCount < 9){
         gameRounds.textContent = gameCount;
         playerPoints.textContent = playerScore;
         computerPoints.textContent = computerScore;
-    } else if (gameCount >= 5){
+    } else if (gameCount >= 9){
         gameOver();
+    }
+}
+
+function removeElements(elements){
+    for(var i = 0; i < elements.length; i++){
+        elements[i].parentNode.removeChild(elements[i]);
     }
 }
 
@@ -84,6 +91,11 @@ function oneRound(hand){
 function gameOver(){
     images.disabled=true;
     buttons.disabled=true;
+    resetButton = document.createElement('button');
+    resetButton.setAttribute("id", "newGame");
+    resetButton.textContent = 'Start a new game?';
+    document.body.appendChild(resetButton);
+    resetButton.addEventListener('click', resetGame);
 
     if(playerScore > computerScore){
         outcome.textContent =  `You've won ${playerName}. Congratulations!`;
@@ -93,6 +105,30 @@ function gameOver(){
         outcome.textContent = `Looks like you're tied with the computer ${playerName}!`;
     }
 
+}
+
+function resetGame(){
+    removeElements(document.querySelectorAll('#newGame'));
+
+    gameCount = 0;
+    playerScore = 0;
+    computerScore = 0;
+    outcome.textContent='';
+    gameRounds.textContent = '';
+    playerPoints.textContent = '';
+    computerPoints.textContent = '';
+    images.disabled=false;
+    buttons.disabled=false;
+    rounds++;
+    let changePlayer = prompt("Change player? Y/N", );
+
+    if (changePlayer.match(/y/i)){
+        playerName = prompt("New Player. Tell me your name?", );
+        console.log(gameCount);
+    } else if (changePlayer.match(/n/i)){
+        alert(`alright ${playerName}, round ${rounds}...BEGIN!`);
+        console.log(gameCount);
+    }
 }
 
 //for each button, interpret the player's choice.
@@ -106,7 +142,8 @@ function start(){
             playerHand = 'Paper';
         } else if (handId = 'scissors'){
             playerHand = 'Scissors';
-        }    
+        }
+            
         console.log(playerHand)
         oneRound(playerHand);
     }));                
@@ -115,11 +152,12 @@ function start(){
 //start game with player's name and use it later.
 function requiredFunction(){
     let playerName = window.prompt("What's your name", );
-    if (playerName == "" || playerName == null){
+
+    if(playerName == "" || playerName == null){
         requiredFunction();
     } else {
         start();
     }
-}
+} 
 
 requiredFunction();

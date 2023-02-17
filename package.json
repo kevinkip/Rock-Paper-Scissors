@@ -2,6 +2,5 @@
   "dependencies": {
     "js-confetti": "^0.11.0",
     "type": "module"
-  }, 
-  "jsConfetti": "/home/kevin/repos/Rock-Paper-Scissors/node_modules/js-confetti/dist/es/index.js"
+  }
 }
