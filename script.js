@@ -1,10 +1,9 @@
-
 const outcome = document.querySelector('.outcome');
 const gameRounds = document.querySelector('.gameRounds');
 const playerPoints = document.querySelector('.pp');
 const computerPoints = document.querySelector('.cp');
 const buttons = document.querySelectorAll('.btn');
-const images = document.querySelectorAll('.images');
+
 const choices = ['Rock', 'Paper', 'Scissors'];
 
 //global variables
@@ -72,11 +71,14 @@ function oneRound(hand){
     gameCount+=1;
 
     //decide to continue game, or finish.  
-    if(gameCount < 9){
+    if(gameCount < 10){
         gameRounds.textContent = gameCount;
         playerPoints.textContent = playerScore;
         computerPoints.textContent = computerScore;
-    } else if (gameCount >= 9){
+    } else if (gameCount >= 10){
+        document.getElementById('rock').setAttribute("disabled","disabled");
+        document.getElementById('paper').setAttribute("disabled","disabled");
+        document.getElementById('scissors').setAttribute("disabled","disabled");
         gameOver();
     }
 }
@@ -89,8 +91,7 @@ function removeElements(elements){
 
 //disable buttons after game is finished. 
 function gameOver(){
-    images.disabled=true;
-    buttons.disabled=true;
+
     resetButton = document.createElement('button');
     resetButton.setAttribute("id", "newGame");
     resetButton.textContent = 'Start a new game?';
@@ -110,6 +111,7 @@ function gameOver(){
 function resetGame(){
     removeElements(document.querySelectorAll('#newGame'));
 
+    gameStatus=true;
     gameCount = 0;
     playerScore = 0;
     computerScore = 0;
@@ -117,8 +119,6 @@ function resetGame(){
     gameRounds.textContent = '';
     playerPoints.textContent = '';
     computerPoints.textContent = '';
-    images.disabled=false;
-    buttons.disabled=false;
     rounds++;
     let changePlayer = prompt("Change player? Y/N", );
 
@@ -129,6 +129,10 @@ function resetGame(){
         alert(`alright ${playerName}, round ${rounds}...BEGIN!`);
         console.log(gameCount);
     }
+
+    document.getElementById('rock').removeAttribute("disabled");
+    document.getElementById('paper').removeAttribute("disabled");
+    document.getElementById('scissors').removeAttribute("disabled");
 }
 
 //for each button, interpret the player's choice.
@@ -136,22 +140,22 @@ function start(){
     let playerHand;
     buttons.forEach((button) => button.addEventListener('click', () => {
     let handId = button.id;
-        if(handId = 'rock'){
-            playerHand = 'Rock';
-        } else if (handId = 'paper'){
-            playerHand = 'Paper';
-        } else if (handId = 'scissors'){
-            playerHand = 'Scissors';
-        }
-            
-        console.log(playerHand)
-        oneRound(playerHand);
+    if(handId = 'rock'){
+        playerHand = 'Rock';
+    } else if (handId = 'paper'){
+        playerHand = 'Paper';
+    } else if (handId = 'scissors'){
+        playerHand = 'Scissors';
+    }
+        
+    console.log(playerHand)
+    oneRound(playerHand);
     }));                
 }
 
 //start game with player's name and use it later.
 function requiredFunction(){
-    let playerName = window.prompt("What's your name", );
+    playerName = window.prompt("What's your name", );
 
     if(playerName == "" || playerName == null){
         requiredFunction();
