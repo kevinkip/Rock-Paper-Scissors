@@ -164,4 +164,5 @@ function requiredFunction(){
     }
 } 
 
-requiredFunction();
+//starting point
+window.addEventListener(requiredFunction());

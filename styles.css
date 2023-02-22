@@ -14,7 +14,7 @@ h1, p{
     border: none;
     background: none;
     cursor: pointer;
-    transition: all .1s ease-in-out;
+    transition: all .07s ease-in-out;
 }
 
 .btn:hover{
