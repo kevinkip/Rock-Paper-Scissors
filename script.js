@@ -92,12 +92,26 @@ function removeElements(elements){
 //disable buttons after game is finished. 
 function gameOver(){
 
+    div = document.createElement('div');
+    div.setAttribute("id", "endButtons");
+    div.setAttribute('style', 'display: inline-block; margin: auto');
+    document.body.appendChild(div);
+
+    playerButton = document.createElement('button');
+    playerButton.setAttribute("id", "changePlayer");
+    playerButton.setAttribute('style', 'margin-left: auto; margin-right: auto; width: 200px');
+    playerButton.textContent = 'Change player';
+
     resetButton = document.createElement('button');
     resetButton.setAttribute("id", "newGame");
-    resetButton.setAttribute('style', 'margin-left: auto; margin-right: auto; width: 300px');
-    resetButton.textContent = 'Start a new game?';
-    document.body.appendChild(resetButton);
+    resetButton.setAttribute('style', 'margin-left: auto; margin-right: auto; width: 200px');
+    resetButton.textContent = 'Start a new game';
+    
+    div.append(resetButton, playerButton)
+    // document.body.appendChild(resetButton);
+    // document.body.appendChild(playerButton);
     resetButton.addEventListener('click', resetGame);
+    playerButton.addEventListener('click', changePlayers);
 
     if(playerScore > computerScore){
         outcome.textContent =  `You've won ${playerName}. Congratulations!`;
@@ -110,7 +124,7 @@ function gameOver(){
 }
 
 function resetGame(){
-    removeElements(document.querySelectorAll('#newGame'));
+    removeElements(document.querySelectorAll('#newGame, #changePlayer'));
 
     gameStatus=true;
     gameCount = 0;
@@ -121,19 +135,19 @@ function resetGame(){
     playerPoints.textContent = '';
     computerPoints.textContent = '';
     rounds++;
-    let changePlayer = prompt("Change player? Y/N", );
 
-    if (changePlayer.match(/y/i)){
-        playerName = prompt("New Player. Tell me your name?", );
-        console.log(gameCount);
-    } else if (changePlayer.match(/n/i)){
-        alert(`alright ${playerName}, round ${rounds}...BEGIN!`);
-        console.log(gameCount);
-    }
+    alert(`alright ${playerName}, round ${rounds}...BEGIN!`);
+    console.log(gameCount);
 
     document.getElementById('rock').removeAttribute("disabled");
     document.getElementById('paper').removeAttribute("disabled");
     document.getElementById('scissors').removeAttribute("disabled");
+}
+
+function changePlayers(){
+        playerName = prompt("New Player. Scribble thy name", );
+        resetGame;
+        console.log(gameCount);
 }
 
 //for each button, interpret the player's choice.
